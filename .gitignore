@@ -1,0 +1,9 @@
+*.o
+*.elf
+*.exe
+*.ldi
+*.so
+*.swp
+timelapse/frames
+screenshot.png
+edit.png
