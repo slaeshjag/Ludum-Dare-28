@@ -6,11 +6,15 @@
 #include "character.h"
 #include "ai.h"
 #include "particle.h"
+#include "map.h"
+#include "state.h"
 
 
 struct thekey {
 	struct character		chr;
 	struct particle			p;
+	struct map			map;
+	struct state			state;
 };
 
 struct thekey key;

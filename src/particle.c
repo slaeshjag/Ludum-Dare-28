@@ -35,8 +35,8 @@ void particle_loop() {
 	for (i = 0; i < key.p.particles; i++) {
 		if (!key.p.p[i].p)
 			continue;
-		/* TODO: Add camera to offset */
-		d_render_offset(-key.p.p[i].x, -key.p.p[i].y);
+		
+		d_render_offset(-key.p.p[i].x - key.map.camera_x, -key.p.p[i].y - key.map.camera_y);
 		d_particle_draw(key.p.p[i].p);
 		if (!d_particle_used(key.p.p[i].p)) {	/* Particle is done pulsing */
 			key.p.p[i].p = d_particle_free(key.p.p[i].p);
