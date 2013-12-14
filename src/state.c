@@ -7,3 +7,39 @@ void state_init() {
 
 	return;
 }
+
+
+void state_loop() {
+	if (key.state.cur_state != key.state.new_state) {
+		switch (key.state.cur_state) {
+			case THEKEY_STATE_DUMMY:
+			case THEKEY_STATE_MAINMENU:
+			case THEKEY_STATE_INGAME:
+				break;
+		}
+
+		switch (key.state.new_state) {
+			case THEKEY_STATE_DUMMY:
+			case THEKEY_STATE_MAINMENU:
+				break;
+			case THEKEY_STATE_INGAME:
+				map_load("res/testlevel.ldmz");
+				break;
+		}
+
+		key.state.cur_state = key.state.new_state;
+	} else {
+		switch (key.state.cur_state) {
+			case THEKEY_STATE_DUMMY:
+			case THEKEY_STATE_MAINMENU:
+				break;
+			case THEKEY_STATE_INGAME:
+				character_loop();
+
+				map_draw();
+				break;
+		}
+	}
+
+	return;
+}

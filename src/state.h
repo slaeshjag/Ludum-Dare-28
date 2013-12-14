@@ -15,5 +15,6 @@ struct state {
 
 
 void state_init();
+void state_loop();
 
 #endif

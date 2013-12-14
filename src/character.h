@@ -5,6 +5,7 @@
 struct character_entry {
 	int			x;
 	int			y;
+	int			l;
 
 	int			x_rest;
 	int			y_rest;
@@ -26,7 +27,9 @@ struct character {
 
 void character_init();
 void character_delete(int i);
-void character_add(void *handler, int x, int y, const char *fname);
+void character_add(void *handler, int x, int y, int l, const char *fname);
+void character_loop();
+void character_draw(int layer);
 
 
 #endif

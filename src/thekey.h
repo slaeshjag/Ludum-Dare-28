@@ -15,6 +15,8 @@ struct thekey {
 	struct particle			p;
 	struct map			map;
 	struct state			state;
+
+	DARNIT_PLATFORM			platform;
 };
 
 struct thekey key;
