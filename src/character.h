@@ -2,6 +2,10 @@
 #define	__CHARACTER_H__
 
 
+#define	CHARACTER_TERMINAL_VELOCITY	500000		/* 200 piczel / second */
+#define	CHARACTER_GRAVITY		500		/* 100 piczel / second^2 */
+
+
 struct character_entry {
 	int			x;
 	int			y;
@@ -13,7 +17,7 @@ struct character_entry {
 	int			x_vel;
 	int			y_vel;
 
-	void			(*handler)();
+	void			(*handler)(int id);
 
 	DARNIT_SPRITE		*sprite;
 };
