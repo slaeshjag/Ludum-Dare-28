@@ -19,9 +19,12 @@ void particle_new_pulse(DARNIT_PARTICLE *p, int x, int y) {
 		for (i = key.p.used; i < key.p.particles; i++)
 			key.p.p[i].p = NULL;
 		k = key.p.used++;
-	} else for (i = 0; i < key.p.particles; i++)
-		if (!key.p.p[i].p)
+	} else for (i = 0; i < key.p.particles; i++) 
+		if (!key.p.p[i].p) {
+			key.p.used++;
 			k = i;
+			break;
+		}
 	key.p.p[k].p = p;
 	key.p.p[k].x = x;
 	key.p.p[k].y = y;
@@ -36,13 +39,15 @@ void particle_loop() {
 		if (!key.p.p[i].p)
 			continue;
 		
-		d_render_offset(-key.p.p[i].x - key.map.camera_x, -key.p.p[i].y - key.map.camera_y);
+		d_render_offset(-key.p.p[i].x + key.map.camera_x, -key.p.p[i].y + key.map.camera_y);
 		d_particle_draw(key.p.p[i].p);
 		if (!d_particle_used(key.p.p[i].p)) {	/* Particle is done pulsing */
 			key.p.p[i].p = d_particle_free(key.p.p[i].p);
 			key.p.used--;
 		}
 	}
+
+	d_render_offset(0, 0);
 
 	return;
 }

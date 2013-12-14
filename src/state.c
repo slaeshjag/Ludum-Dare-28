@@ -36,7 +36,9 @@ void state_loop() {
 			case THEKEY_STATE_INGAME:
 				character_loop();
 
+				d_render_offset(key.map.camera_x, key.map.camera_y);
 				map_draw();
+				particle_loop();
 				break;
 		}
 	}

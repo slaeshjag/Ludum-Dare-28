@@ -42,7 +42,8 @@ void map_draw() {
 		key.map.camera_y = (key.chr.entry[key.map.character_follow].y / 1000 - key.platform.screen_h / 2);
 	}
 
-
+	d_map_camera_move(key.map.map, key.map.camera_x, key.map.camera_y);
+	
 	for (i = 0; i < key.map.map->layers; i++) {
 		d_tilemap_draw(key.map.map->layer[i].tilemap);
 		character_draw(i);

@@ -11,13 +11,15 @@ struct character_entry {
 	int			y;
 	int			l;
 
+	int			dir;
+
 	int			x_rest;
 	int			y_rest;
 
 	int			x_vel;
 	int			y_vel;
 
-	void			(*handler)(int id);
+	void			(*handler)(int id, enum AI_MSG msg);
 
 	DARNIT_SPRITE		*sprite;
 };
@@ -31,7 +33,7 @@ struct character {
 
 void character_init();
 void character_delete(int i);
-void character_add(void *handler, int x, int y, int l, const char *fname);
+int character_add(void *handler, int x, int y, int l, const char *fname);
 void character_loop();
 void character_draw(int layer);
 

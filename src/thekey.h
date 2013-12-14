@@ -3,8 +3,8 @@
 
 
 #include <darnit/darnit.h>
-#include "character.h"
 #include "ai.h"
+#include "character.h"
 #include "particle.h"
 #include "map.h"
 #include "state.h"

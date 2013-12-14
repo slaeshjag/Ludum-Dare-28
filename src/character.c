@@ -20,13 +20,15 @@ void character_delete(int i) {
 
 	if (key.map.character_follow == i)
 		key.map.character_follow = -1;
+	key.chr.entry[i].handler(i, AI_MSG_DESTROY);
+	key.chr.entry[i].handler = NULL;
 
 	key.chr.entry[i].sprite = d_sprite_free(key.chr.entry[i].sprite);
 	key.chr.used--;
 }
 
 
-void character_add(void *handler, int x, int y, int l, const char *fname) {
+int character_add(void *handler, int x, int y, int l, const char *fname) {
 	int i, k;
 
 	if (key.chr.entries == key.chr.used) {
@@ -37,9 +39,13 @@ void character_add(void *handler, int x, int y, int l, const char *fname) {
 		k = key.chr.used++;
 	} else
 		for (i = 0; i < key.chr.entries; i++)
-			if (!key.chr.entry[i].handler)
+			if (!key.chr.entry[i].handler) {
 				k = i;
-
+				key.chr.used++;
+				break;
+			}
+	if (k == key.chr.entries)
+		fprintf(stderr, "Hell will break loose\n");
 	key.chr.entry[k].handler = handler;
 	key.chr.entry[k].x = x * 1000;
 	key.chr.entry[k].y = y * 1000;
@@ -48,10 +54,12 @@ void character_add(void *handler, int x, int y, int l, const char *fname) {
 	key.chr.entry[k].y_rest = 0;
 	key.chr.entry[k].x_vel = 0;
 	key.chr.entry[k].y_vel = 0;
+	key.chr.entry[k].dir = 0;
 	key.chr.entry[k].sprite = d_sprite_load(fname, 0, DARNIT_PFORMAT_RGB5A1);
+	key.chr.entry[k].handler(k, AI_MSG_INIT);
 	d_sprite_animate_start(key.chr.entry[k].sprite);
 	
-	return;
+	return k;
 }
 
 
@@ -197,7 +205,7 @@ void character_loop() {
 		}
 
 		d_sprite_move(key.chr.entry[i].sprite, key.chr.entry[i].x / 1000, key.chr.entry[i].y / 1000);
-		key.chr.entry[i].handler(i);
+		key.chr.entry[i].handler(i, AI_MSG_LOOP);
 		/* TODO: Do stuff */
 	}
 
